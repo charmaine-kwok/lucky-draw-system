@@ -1,0 +1,141 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "A lucky draw system api.",
+        "title": "Lucky Draw System Api",
+        "contact": {},
+        "version": "1.0.0"
+    },
+    "host": "localhost:8080",
+    "paths": {
+        "/draw/{customerId}": {
+            "get": {
+                "description": "Enter draw",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Enter draw",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Prize",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.prizeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid customer id",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.errorResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.errorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.errorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redeem/{customerId}": {
+            "post": {
+                "description": "Redeem prize",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Redeem prize",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Mobile",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Mobile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mobile",
+                        "schema": {
+                            "$ref": "#/definitions/models.Mobile"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid customer id",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.errorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.errorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controllers.errorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "Some error message..."
+                }
+            }
+        },
+        "controllers.prizeResponse": {
+            "type": "object",
+            "properties": {
+                "prize": {
+                    "type": "string",
+                    "example": "Congratulations! You have won Buy 1 Get 1 Free Coupon!"
+                }
+            }
+        },
+        "models.Mobile": {
+            "type": "object",
+            "required": [
+                "mobile"
+            ],
+            "properties": {
+                "mobile": {
+                    "type": "string",
+                    "example": "98765432"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,93 @@
+definitions:
+  controllers.errorResponse:
+    properties:
+      error:
+        example: Some error message...
+        type: string
+    type: object
+  controllers.prizeResponse:
+    properties:
+      prize:
+        example: Congratulations! You have won Buy 1 Get 1 Free Coupon!
+        type: string
+    type: object
+  models.Mobile:
+    properties:
+      mobile:
+        example: "98765432"
+        type: string
+    required:
+    - mobile
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: A lucky draw system api.
+  title: Lucky Draw System Api
+  version: 1.0.0
+paths:
+  /draw/{customerId}:
+    get:
+      description: Enter draw
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Prize
+          schema:
+            $ref: '#/definitions/controllers.prizeResponse'
+        "400":
+          description: Invalid customer id
+          schema:
+            $ref: '#/definitions/controllers.errorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/controllers.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/controllers.errorResponse'
+      summary: Enter draw
+      tags:
+      - Customer
+  /redeem/{customerId}:
+    post:
+      consumes:
+      - application/json
+      description: Redeem prize
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: string
+      - description: Mobile
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.Mobile'
+      responses:
+        "200":
+          description: Mobile
+          schema:
+            $ref: '#/definitions/models.Mobile'
+        "400":
+          description: Invalid customer id
+          schema:
+            $ref: '#/definitions/controllers.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/controllers.errorResponse'
+      summary: Redeem prize
+      tags:
+      - Customer
+swagger: "2.0"
