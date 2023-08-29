@@ -4,12 +4,7 @@ The Lucky Draw System is a web-based system that allows customers to participate
 
 ## Running the System
 
-To run the Lucky Draw System, follow these steps:
-
-1. Navigate to the stack directory.
-2. Execute the following command in your terminal:
-
-## Command
+To run the Lucky Draw System, execute the following command:
 
 ``` sh
 cd stack
