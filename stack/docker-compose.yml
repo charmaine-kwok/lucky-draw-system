@@ -10,7 +10,7 @@ services:
       - '../db:/var/lib/postgresql/data'
     environment:
       POSTGRES_DB: luckydraw
-      POSTGRES_USERNAME: $USERNAME
+      POSTGRES_USER: $USERNAME
       POSTGRES_PASSWORD: $PASSWORD
     hostname: luckydraw
     healthcheck:
